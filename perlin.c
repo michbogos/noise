@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<time.h>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include"stb_image_write.h"
 
@@ -16,6 +17,7 @@ float smoothstep(float x0, float x1, float t){
 }
 
 int main(){
+    srand(time(NULL));
     float* vecs = malloc(sizeof(float)*2*GRIDX*GRIDY);
     float* dot = malloc(sizeof(float)*4*WIDTH*HEIGHT);
     for(int i =0; i < GRIDX*GRIDY; i++){
@@ -25,7 +27,7 @@ int main(){
         a *= 3284157443; b ^= a << s | a >> w-s;
         b *= 1911520717; a ^= b << s | b >> w-s;
         a *= 2048419325;
-        float random = a * (3.14159265 / ~(~0u >> 1)); // in [0, 2*Pi]
+        float random = rand(); // in [0, 2*Pi]
         float x = cos(random);
         float y = sin(random);
         vecs[2*i+0] = x;
