@@ -1,14 +1,16 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
+#include<time.h>
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include"stb_image_write.h"
 
 #define HEIGHT 512
 #define WIDTH 512
 #define NUM_POINTS 200
+#define GRID
 
-int points[NUM_POINTS][2];
+float points[NUM_POINTS][2];
 
 float min_dist(float x, float y){
     float mn = 1000000000000.0f;
@@ -24,17 +26,16 @@ float min_dist(float x, float y){
 int main(){
     srand(time(NULL));
     for(int i = 0; i < NUM_POINTS; i++){
-        points[i][0] = ((float)rand()/RAND_MAX)*WIDTH;
-        points[i][1] = ((float)rand()/RAND_MAX)*HEIGHT;
+        points[i][0] = ((float)rand()/RAND_MAX);
+        points[i][1] = ((float)rand()/RAND_MAX);
     }
     char* data = malloc(sizeof(char)*4*WIDTH*HEIGHT);
     for(int y = 0; y < HEIGHT; y++){
-        printf("%d\n", y);
         for(int x = 0; x < WIDTH; x++){
             float res = min_dist((float)x/WIDTH, (float)y/HEIGHT);
-            data[(WIDTH*y+x)*4+0] = res*255;
-            data[(WIDTH*y+x)*4+1] = res*255;
-            data[(WIDTH*y+x)*4+2] = res*255;
+            data[(WIDTH*y+x)*4+0] = res*(NUM_POINTS/20)*255;
+            data[(WIDTH*y+x)*4+1] = res*(NUM_POINTS/20)*255;
+            data[(WIDTH*y+x)*4+2] = res*(NUM_POINTS/20)*255;
             data[(WIDTH*y+x)*4+3] = 255;
         }
     stbi_write_png("voronoi.png", WIDTH, HEIGHT, 4, data, WIDTH*4);

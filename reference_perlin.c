@@ -88,7 +88,11 @@ int main(){
     char* data = malloc(sizeof(char)*4*WIDTH*HEIGHT);
     for(int y = 0; y < HEIGHT; y++){
         for(int x = 0; x < WIDTH; x++){
-            char res = ((perlin((float)x/WIDTH*SCALE, (float)y/HEIGHT*SCALE)+1)/2.0)*255;
+            char res = (((perlin((float)x/WIDTH*SCALE, (float)y/HEIGHT*10)+1)/2.0)*0.2 +
+             ((perlin((float)x/WIDTH*SCALE, (float)y/HEIGHT*20)+1)/2.0)*0.2 +
+              ((perlin((float)x/WIDTH*SCALE, (float)y/HEIGHT*30)+1)/2.0)*0.2 +
+               ((perlin((float)x/WIDTH*SCALE, (float)y/HEIGHT*40)+1)/2.0)*0.2 +
+                ((perlin((float)x/WIDTH*SCALE, (float)y/HEIGHT*50)+1)/2.0)*0.2)*255;
             data[(WIDTH*y+x)*4+0] = res;
             data[(WIDTH*y+x)*4+1] = res;
             data[(WIDTH*y+x)*4+2] = res;
